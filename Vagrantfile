@@ -85,9 +85,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks"]
-
-    chef.add_recipe "nginx"
+    # chef.add_recipe "nginx"
     # chef.add_recipe "mysql::server"
     # chef.add_recipe "mysql::client"
 
@@ -111,9 +109,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     }
 
-    # chef.run_list = [
-    #   'recipe[test-cookbook::default]'
-    # ]
+    chef.run_list = [
+      'recipe[test-cookbook::default]'
+    ]
   end
 
   config.vm.provision "shell", inline: $script
