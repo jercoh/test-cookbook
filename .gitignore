@@ -21,3 +21,6 @@ bin/*
 
 # Config
 /config
+
+# Data
+/data
