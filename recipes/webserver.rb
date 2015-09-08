@@ -7,12 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-group node['thebeautyst']['group']
+include_recipe 'nginx'
 
-user node['thebeautyst']['user'] do
-  group node['thebeautyst']['group']
-  system true
-  shell '/bin/bash'
+# cookbook_file "#{node['nginx']['dir']}/sites-available/stag.thebeautyst.org" do
+#   mode '0644'
+# end
+
+cookbook_file "#{node['nginx']['dir']}/sites-available/stag.thebeautyst.org" do
+  source 'nginx/stag.thebeautyst.org'
+  mode '0644'
 end
 
-include_recipe 'nginx'
+nginx_site 'stag.thebeautyst.org'
