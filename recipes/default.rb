@@ -10,13 +10,13 @@
 group node['thebeautyst']['group']
 
 user node['thebeautyst']['user'] do
-  group node['thebeautyst']['group']
+  group node['thebeautyst']['group'].to_i 
   system true
   shell '/bin/bash'
 end
 
 user node['thebeautyst']['group'] do
-  group node['thebeautyst']['user']
+  group node['thebeautyst']['user'].to_i 
   system true
   shell '/bin/bash'
 end
@@ -36,3 +36,4 @@ directory '/var/log/thebeautyst' do
 end
 
 include_recipe 'test-cookbook::webserver'
+include_recipe 'test-cookbook::database'

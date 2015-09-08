@@ -21,6 +21,7 @@ bin/*
 
 # Config
 /config
+/attributes/database.rb
 
 # Data/Files
 /data

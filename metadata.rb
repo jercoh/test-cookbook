@@ -8,3 +8,4 @@ version          '0.1.0'
 
 depends "nginx", "~> 2.6"
 depends 'hostsfile'
+depends 'mysql', '~> 6.1.0'
