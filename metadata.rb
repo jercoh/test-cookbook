@@ -7,3 +7,4 @@ long_description 'Installs/Configures test-cookbook'
 version          '0.1.0'
 
 depends "nginx", "~> 2.6"
+depends 'hostsfile'
