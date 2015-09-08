@@ -15,4 +15,24 @@ user node['thebeautyst']['user'] do
   shell '/bin/bash'
 end
 
+user node['thebeautyst']['group'] do
+  group node['thebeautyst']['user']
+  system true
+  shell '/bin/bash'
+end
+
+directory '/var/www' do
+  owner 'www-data'
+  group 'www-data'
+  mode '0775'
+  action :create
+end
+
+directory '/var/log/thebeautyst' do
+  owner 'www-data'
+  group 'www-data'
+  mode '0775'
+  action :create
+end
+
 include_recipe 'test-cookbook::webserver'
