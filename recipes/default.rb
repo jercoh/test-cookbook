@@ -6,6 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe 'test-cookbook::webserver'
+include_recipe 'test-cookbook::database'
 
 group node['thebeautyst']['group']
 
@@ -22,18 +24,35 @@ user node['thebeautyst']['group'] do
 end
 
 directory '/var/www' do
+  recursive true
   owner 'www-data'
   group 'www-data'
-  mode '0775'
+  mode '0755'
   action :create
+end
+
+directory '/usr/share/nginx/html' do
+  owner 'www-data'
+  group 'www-data'
+  mode '0755'
+  action :create
+end
+
+# directory '/usr/share/phpmyadmin' do
+#   owner 'www-data'
+#   group 'www-data'
+#   mode '0755'
+#   action :create
+# end
+
+execute "chown-data-www" do
+  command "chown -R www-data:www-data /usr/share/phpmyadmin"
+  action :run
 end
 
 directory '/var/log/thebeautyst' do
   owner 'www-data'
   group 'www-data'
-  mode '0775'
+  mode '0755'
   action :create
 end
-
-include_recipe 'test-cookbook::webserver'
-include_recipe 'test-cookbook::database'

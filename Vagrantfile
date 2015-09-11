@@ -6,10 +6,12 @@ VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.require_version '>= 1.5.0'
 
+# Symlinks
 $script = <<SCRIPT
 if ! [ -L /var/www ]; then
   rm -rf /var/www
-  ln -fs /vagrant /var/www
+  ln -fs /vagrant/app /var/www
+  ln -s /usr/share/phpmyadmin /var/www/vendor/phpmyadmin
 fi
 SCRIPT
 
@@ -90,22 +92,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # chef.add_recipe "mysql::client"
 
     chef.json = {
-      rbenv: {
-        user_installs: [{
-          user: 'vagrant',
-          rubies: ["2.1.2"],
-          global: "2.1.2",
-          gems: {
-            "2.1.2" => [
-              { name: "bundler" }
-            ]
-          }
-        }]
-      },
       mysql: {
-        server_root_password: 'rootpass',
-        server_debian_password: 'debpass',
-        server_repl_password: 'replpass'
+        server_root_password: ''
       }
     }
 
