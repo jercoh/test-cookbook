@@ -57,5 +57,5 @@ end
 # Seed the database with a table and test data.
 execute 'initialize database' do
   command "mysql -h #{node['mysql']['host']} -u #{node['mysql']['app']['username']} -p#{node['mysql']['app']['password']} -D #{node['mysql']['dbname']} < #{node['mysql']['app']['seed_file']}"
-  not_if  "mysql -h #{node['mysql']['host']} -u #{node['mysql']['app']['username']} -p#{node['mysql']['app']['password']} -D #{node['mysql']['dbname']} -e 'describe customers;'"
+  not_if  "mysql -h #{node['mysql']['host']} -u #{node['mysql']['app']['username']} -p#{node['mysql']['app']['password']} -D #{node['mysql']['dbname']} -e 'describe wp_users;'"
 end
