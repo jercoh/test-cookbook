@@ -15,19 +15,18 @@ include_recipe "php::module_curl"
 
 
 # Nginx Config
-cookbook_file "#{node['nginx']['dir']}/sites-available/stag.thebeautyst.org" do
-  source 'nginx/stag.thebeautyst.org'
-  mode '0644'
+# ensure!
+nginx_site 'default' do
+  enable false
 end
 
-nginx_site 'stag.thebeautyst.org'
-
-cookbook_file "#{node['nginx']['dir']}/sites-available/phpmyadmin" do
-  source 'nginx/phpmyadmin'
-  mode '0644'
+nginx_site 'stag.thebeautyst.org' do
+    template 'stag.thebeautyst.org.erb'
 end
 
-nginx_site 'phpmyadmin'
+nginx_site 'phpmyadmin' do
+    template 'phpmyadmin.erb'
+end
 
 hostsfile_entry '127.0.0.1' do
   hostname  'stag.thebeautyst.org stag-fr.thebeautyst.org'

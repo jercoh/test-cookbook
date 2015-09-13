@@ -6,6 +6,13 @@ VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.require_version '>= 1.5.0'
 
+# Installs
+# $install = <<SCRIPT
+# apt-get update
+# apt-get install -y emacs
+# apt-get install -y curl
+# SCRIPT
+
 # Symlinks
 $script = <<SCRIPT
 if ! [ -L /var/www ]; then
@@ -28,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   $ vagrant plugin install vagrant-omnibus
   #
   if Vagrant.has_plugin?("vagrant-omnibus")
-    config.omnibus.chef_version = 'latest'
+    config.omnibus.chef_version = '12.4.1'
   end
 
   # Every Vagrant virtual environment requires a box to build off of.
@@ -40,7 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # via the IP. Host-only networks can talk to the host machine as well as
   # any other machines on the same network, but cannot be accessed (through this
   # network interface) by any external networks.
-  config.vm.network :private_network, type: 'dhcp'
+  # config.vm.network :private_network, type: 'dhcp'
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -86,6 +93,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
 
+  # config.vm.provision "shell", inline: $install
+
   config.vm.provision :chef_solo do |chef|
     # chef.add_recipe "nginx"
     # chef.add_recipe "mysql::server"
@@ -93,7 +102,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     chef.json = {
       mysql: {
-        server_root_password: ''
+        server_root_password: 'rootpass',
+        server_debian_password: 'debpass',
+        server_repl_password: 'replpass'
       }
     }
 

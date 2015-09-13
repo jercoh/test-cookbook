@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe 'test-cookbook::setup'
 include_recipe 'test-cookbook::webserver'
 include_recipe 'test-cookbook::database'
 

@@ -1,0 +1,44 @@
+server {
+    server_name stag.thebeautyst.org stag-fr.thebeautyst.org;
+    listen 80;
+    index index.php;
+
+    root /var/www/thebeautyst;
+
+    error_log /var/log/thebeautyst/error.log;
+    access_log /var/log/thebeautyst/access.log;
+
+    # Wordpress
+    location /conseils-beaute {
+        index index.php;
+        try_files $uri $uri/ /conseils-beaute/index.php?$args;
+    } 
+
+    location /beauty-tips {
+        index index.php;
+        try_files $uri $uri/ /conseils-beaute/index.php?$args;
+    } 
+
+    location / {
+        index index.html index.php; ## Allow a static html file to be shown first
+        try_files $uri $uri/ @handler; ## If missing pass the URI to Magento's front handler
+    }	
+
+    location @handler {
+        rewrite / /index.php;
+    }
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+        # With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock; 
+        #fastcgi_pass 127.0.0.1:9000;
+        fastcgi_read_timeout 300;
+        fastcgi_index index.php;
+        fastcgi_param  MAGE_RUN_CODE default;
+        fastcgi_param  MAGE_RUN_TYPE store;
+        include fastcgi_params;
+    }	
+}
