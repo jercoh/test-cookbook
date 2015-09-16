@@ -29,7 +29,7 @@ nginx_site 'phpmyadmin' do
 end
 
 hostsfile_entry '127.0.0.1' do
-  hostname  'stag.thebeautyst.org stag-fr.thebeautyst.org'
+  hostname  'localhost stag.thebeautyst.org stag-fr.thebeautyst.org'
   action    :create
 end
 
