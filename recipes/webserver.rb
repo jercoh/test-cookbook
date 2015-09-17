@@ -35,14 +35,14 @@ end
 
 
 # Install phpmyadmin
-cookbook_file "/tmp/phpmyadmin.deb.conf" do
-  source "phpmyadmin/phpmyadmin.deb.conf"
-end
-bash "debconf_for_phpmyadmin" do
-  code "debconf-set-selections /tmp/phpmyadmin.deb.conf"
-end
-package "phpmyadmin"
+# cookbook_file "/tmp/phpmyadmin.deb.conf" do
+#   source "phpmyadmin/phpmyadmin.deb.conf"
+# end
+# bash "debconf_for_phpmyadmin" do
+#   code "debconf-set-selections /tmp/phpmyadmin.deb.conf"
+# end
+# package "phpmyadmin"
 
-package "php5-fpm" do
-  action :install
-end
+# package "php5-fpm" do
+#   action :install
+# end

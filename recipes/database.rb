@@ -14,6 +14,8 @@
 #   action :install
 # end
 
+include_recipe 'phpmyadmin::default'
+
 # Configure the mysql2 Ruby gem.
 mysql2_chef_gem 'default' do
   action :install
@@ -58,4 +60,13 @@ end
 execute 'initialize database' do
   command "mysql -h #{node['mysql']['host']} -u #{node['mysql']['app']['username']} -p#{node['mysql']['app']['password']} -D #{node['mysql']['dbname']} < #{node['mysql']['app']['seed_file']}"
   not_if  "mysql -h #{node['mysql']['host']} -u #{node['mysql']['app']['username']} -p#{node['mysql']['app']['password']} -D #{node['mysql']['dbname']} -e 'describe wp_users;'"
+end
+
+# PhpMyAdmin Install
+phpmyadmin_db node['mysql']['dbname'] do
+    host node['mysql']['host']
+    port 3306
+    username node['mysql']['app']['username']
+    password node['mysql']['app']['password']
+    hide_dbs %w{ information_schema mysql phpmyadmin performance_schema }
 end
