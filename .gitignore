@@ -26,3 +26,4 @@ bin/*
 # Data/Files
 /data
 /files
+/app
