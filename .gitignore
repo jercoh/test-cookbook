@@ -24,6 +24,6 @@ bin/*
 /attributes/database.rb
 
 # Data/Files
-/data
-/files
-/app
+data/*
+files/*
+app/*
