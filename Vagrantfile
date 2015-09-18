@@ -19,6 +19,9 @@ if ! [ -L /var/www ]; then
   rm -rf /var/www
   ln -fs /vagrant/app /var/www
   ln -s /opt/phpmyadmin /var/www/vendor/phpmyadmin
+  sudo php5enmod mcrypt
+  sudo service php5-fpm restart
+  sudo service nginx reload
 fi
 SCRIPT
 
