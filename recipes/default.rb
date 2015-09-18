@@ -46,8 +46,13 @@ end
 #   action :create
 # end
 
-execute "chown-data-www" do
-  command "chown -R www-data:www-data /usr/share/phpmyadmin"
+execute "chown-data-www-phpmyadmin" do
+  command "chown -R www-data:www-data /opt/phpmyadmin"
+  action :run
+end
+
+execute "chown-data-www-thebeautyst" do
+  command "chown -R www-data:www-data /vagrant/app/thebeautyst"
   action :run
 end
 

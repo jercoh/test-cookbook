@@ -18,7 +18,7 @@ $script = <<SCRIPT
 if ! [ -L /var/www ]; then
   rm -rf /var/www
   ln -fs /vagrant/app /var/www
-  ln -s /usr/share/phpmyadmin /var/www/vendor/phpmyadmin
+  ln -s /opt/phpmyadmin /var/www/vendor/phpmyadmin
 fi
 SCRIPT
 

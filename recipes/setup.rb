@@ -7,6 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package ['curl', 'emacs', 'ruby-all-dev'] do 
+package ['curl', 'emacs'] do 
   action :install
 end
